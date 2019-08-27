@@ -19,4 +19,13 @@ function onConnect () {
   console.log('fe-connect ' + socket.id)
 }
 
+// $(function () {
+//   $('form').submit(function(e){
+//   e.preventDefault() // prevents page reloading
+//   socket.emit('chat message', $('#m').val())
+//   $('#m').val('');
+//   return false;
+//   })
+// })
+
 ReactDOM.render(appJsx, document.getElementById('root'))

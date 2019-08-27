@@ -4,10 +4,15 @@ import { Route } from 'react-router-dom'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
 import Header from '../Header/Header'
+
+// AUTH
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+
+// CHAT
+import Messages from '../Message/Messages'
 
 class App extends Component {
   constructor () {
@@ -54,10 +59,17 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
+          <Route path='/messages' render={() => (
+            <Messages alert={this.alert} setUser={this.setUser} />
+          )} />
         </main>
       </Fragment>
     )
   }
 }
+
+// <Route path='/chat' render={() => (
+//   <Chat alert={this.alert} setUser={this.setUser} />
+// )} />
 
 export default App
