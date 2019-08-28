@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
+// import DeleteMessage from '../../api/message'
 
 class Messages extends Component {
   constructor (props) {
@@ -28,29 +29,21 @@ class Messages extends Component {
     }
   }
 
-  delete = event => {
-    const id = event.target.getAttribute('messageid')
-    console.log('event', id)
-    axios.delete(`${apiUrl}/messages/${id}`)
-      .then(console.log)
-      .catch(console.error)
-  }
-
-  // delete = async () => {
-  //   try {
-  //     await axios.delete(`${apiUrl}/messages/${this.props.match.params.id}`)
-  //     this.setState({ deleted: true })
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
+  // delete = event => {
+  //   const id = event.target.getAttribute('messageid')
+  //   console.log('event', id)
+  //   axios.delete(`${apiUrl}/messages/${id}`)
+  //     .then(console.log)
+  //     .catch(console.error)
   // }
+
+  // <button onClick={deleteMessage} messageid={message._id}>Delete</button>
 
   render () {
     const messagesJsx = this.state.messages.map(message => (
       <li key={message._id}>
         {console.log('msg stuff', message)}
         <Link to={'/messages/' + message._id}>{message.text}</Link>
-        <button onClick={this.delete} messageid={message._id}>Delete</button>
       </li>
     ))
     return (
@@ -61,5 +54,7 @@ class Messages extends Component {
     )
   }
 }
+
+// <DeleteMessage alert={this.alert} user={this.props.user} />
 
 export default Messages

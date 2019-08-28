@@ -1,16 +1,18 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const createMessage = input => {
+export const createMessage = (input, user) => {
+  console.log('token', user.token)
+  console.log('input', input)
   return axios({
     method: 'POST',
     url: apiUrl + '/messages',
     headers: {
-      'Authorization': `Token token=${input.user.token}`
+      'Authorization': `Token token=${user.token}`
     },
     data: {
       message: {
-        text: input.text
+        text: input.message.text
       }
     }
   })
@@ -34,27 +36,29 @@ export const showMessage = input => {
   })
 }
 
-export const updateMessage = input => {
+export const updateMessage = (input, user) => {
   return axios({
     url: apiUrl + '/messages' + input.id,
     method: 'PATCH',
     headers: {
-      'Authorization': `Token token=${input.user.token}`
+      'Authorization': `Token token=${user.token}`
     },
     data: {
       message: {
-        text: input.text
+        text: input.message.text
       }
     }
   })
 }
 
-export const deleteMessage = input => {
+export const deleteMessage = (input, user) => {
+  console.log('token', user.token)
+  console.log('input', input)
   return axios({
     url: apiUrl + '/messages/' + input.id,
     method: 'DELETE',
     headers: {
-      'Authorization': `Token token=${input.user.token}`
+      'Authorization': `Token token=${user.token}`
     }
   })
 }

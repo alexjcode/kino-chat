@@ -60,20 +60,20 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-          <Route exact path='/messages' render={() => (
-            <Messages alert={this.alert} setUser={this.setUser} />
+          <Route exact path='/' render={() => (
+            <Messages alert={this.alert} user={user} />
           )} />
-          <Route exact path='/messages/new' render={() => (
-            <CreateMessage alert={this.alert} setUser={this.setUser} />
-          )} />
+          { user && <CreateMessage alert={this.alert} user={user} />}
         </main>
       </Fragment>
     )
   }
 }
 
-// <Route path='/chat' render={() => (
-//   <Chat alert={this.alert} setUser={this.setUser} />
-// )} />
+// <Sidebar/>
+// <section id="main">
+//   <MessagesList/>
+//   <AddMessage/>
+// </section>
 
 export default App

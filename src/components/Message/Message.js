@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+// import DeleteMessage from '../../api/message'
 
 class Message extends Component {
   constructor (props) {
@@ -34,14 +35,14 @@ class Message extends Component {
   //     .catch(console.error)
   // }
 
-  delete = async () => {
-    try {
-      await axios.delete(`${apiUrl}/messages/${this.props.match.params.id}`)
-      this.setState({ deleted: true })
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  // delete = async () => {
+  //   try {
+  //     await axios.delete(`${apiUrl}/messages/${this.props.match.params.id}`)
+  //     this.setState({ deleted: true })
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
 
   render () {
     const { message, deleted } = this.state
@@ -59,6 +60,7 @@ class Message extends Component {
       message ? messageJsx = (
         <div>
           <p>{message.text}</p>
+
           <button onClick={this.delete} messageid={message.id}>Delete</button>
           <Link to={`/messages/${this.props.match.params.id}/edit`}>
             <button>Edit</button>
@@ -66,11 +68,7 @@ class Message extends Component {
         </div>
       ) : messageJsx = 'Loading...'
     }
-    return (
-      <Fragment>
-        {messageJsx}
-      </Fragment>
-    )
+    return (<Fragment>{messageJsx}</Fragment>)
   }
 }
 
