@@ -7,6 +7,10 @@ import messages from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import apiUrl from '../../apiConfig'
+import io from 'socket.io-client'
+const socket = io(apiUrl)
+
 class SignUp extends Component {
   constructor () {
     super()
@@ -35,6 +39,7 @@ class SignUp extends Component {
         message: messages.signUpSuccess,
         variant: 'success'
       }))
+      .then(() => socket.emit('sign in', `${this.state.user} signed in`))
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)

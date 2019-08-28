@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 // import axios from 'axios'
-import apiUrl from '../../../apiConfig'
 import MessageForm from '../MessageForm'
 import { createMessage } from '../../../api/message'
+import apiUrl from '../../../apiConfig'
 import io from 'socket.io-client'
 const socket = io(apiUrl)
 
@@ -29,13 +29,7 @@ class CreateMessage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { alert, user } = this.props
-
-    // axios.post(`${apiUrl}/messages`, {
-    //   message: this.state.message
-    // })
-    //   .then(res => this.setState({ createdMessageId: res.data.message.id }))
-    //   .catch(console.error)
+    const { alert, history, user } = this.props
 
     createMessage(this.state, user)
       .then(() => alert({
@@ -43,7 +37,8 @@ class CreateMessage extends Component {
         message: 'you made a message',
         variant: 'success'
       }))
-      .then(() => socket.emit('chat message', `[${user.email}] ${this.state.message.text}`))
+      .then(() => socket.emit('new message', `[${user.email}] ${this.state.message.text}`))
+      .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
         this.setState({ message: null })

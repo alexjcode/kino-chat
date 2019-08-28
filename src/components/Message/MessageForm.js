@@ -9,7 +9,7 @@ const MessageForm = ({ messageInfo, handleChange, handleSubmit }) => (
     <input
       placeholder="..."
       name="text"
-      value={messageInfo.text}
+      value={messageInfo ? messageInfo.text : ''}
       onChange={handleChange}
     />
     <button type="submit">Submit</button>

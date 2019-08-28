@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { signOut } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
+import apiUrl from '../../apiConfig'
+import io from 'socket.io-client'
+const socket = io(apiUrl)
+
 class SignOut extends Component {
   componentDidMount () {
     const { alert, history, clearUser, user } = this.props
@@ -11,9 +15,10 @@ class SignOut extends Component {
     signOut(user)
       .finally(() => alert({
         heading: 'Signed Out Successfully',
-        messagE: messages.signOutSuccess,
+        message: messages.signOutSuccess,
         variant: 'success'
       }))
+      .finally(() => socket.emit('sign out', `${user.email} signed out`))
       .finally(() => history.push('/'))
       .finally(() => clearUser())
   }

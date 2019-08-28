@@ -14,18 +14,15 @@ const appJsx = (
 )
 
 const socket = io(apiUrl)
-socket.on('connect', onConnect)
-function onConnect () {
-  console.log('fe-connect ' + socket.id)
-}
+socket.on('new message', function (msg) {
+  // this.state.messages.append($('<li>').text(msg))
+})
 
-// $(function () {
-//   $('form').submit(function(e){
-//   e.preventDefault() // prevents page reloading
-//   socket.emit('chat message', $('#m').val())
-//   $('#m').val('');
-//   return false;
-//   })
-// })
+// const socket = io(apiUrl)
+// socket.on('connect', onConnect)
+// function onConnect () {
+//   console.log()
+//   // console.log('fe-connect ' + socket.id)
+// }
 
 ReactDOM.render(appJsx, document.getElementById('root'))
