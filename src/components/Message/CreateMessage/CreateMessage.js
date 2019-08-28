@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 // import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 import MessageForm from '../MessageForm'
 import { createMessage } from '../../../api/message'
 import apiUrl from '../../../apiConfig'
@@ -29,16 +30,31 @@ class CreateMessage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { alert, history, user } = this.props
+    const { alert, user } = this.props
 
     createMessage(this.state, user)
+      .then(res => {
+        this.setState({
+          createdMessageId: res.data.message._id,
+          messageData: res.data.message
+        })
+        console.log('new id', res.data.message._id)
+        return ''
+      })
       .then(() => alert({
         heading: 'Message Created',
         message: 'you made a message',
         variant: 'success'
       }))
-      .then(() => socket.emit('new message', `[${user.email}] ${this.state.message.text}`))
-      .then(() => history.push('/'))
+      .then(() => socket.emit('new message', {
+        text: this.state.message.text,
+        _id: this.state.createdMessageId,
+        updatedAt: this.state.messageData.updatedAt,
+        createdAt: this.state.messageData.createdAt,
+        owner: this.state.messageData.owner,
+        __v: this.state.messageData.__v,
+        log: `[${user.email}] ${this.state.message.text}`
+      }))
       .catch(error => {
         console.error(error)
         this.setState({ message: null })
@@ -56,32 +72,27 @@ class CreateMessage extends Component {
   //   return false // ???
   // })
   render () {
-    const { createdMessageId } = this.state
-    if (createdMessageId) {
-      return <Redirect to={/messages/ + createdMessageId}/>
-    } else {
-      return (
-        <Fragment>
-          <MessageForm
-            messageInfo={this.state.message}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </Fragment>
-      )
-    }
+    return (
+      <Fragment>
+        <MessageForm
+          messageInfo={this.state.message}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Fragment>
+    )
   }
-
-  // /////////////////////////
-
-  // async componentDidMount () {
-  //   try {
-  //     const res = await axios.post(`${apiUrl}/messages`, 'data')
-  //     this.setState({ message: res.data.message })
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
 }
 
-export default CreateMessage
+// /////////////////////////
+
+// async componentDidMount () {
+//   try {
+//     const res = await axios.post(`${apiUrl}/messages`, 'data')
+//     this.setState({ message: res.data.message })
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
+export default withRouter(CreateMessage)

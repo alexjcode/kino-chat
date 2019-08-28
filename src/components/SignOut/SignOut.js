@@ -18,7 +18,7 @@ class SignOut extends Component {
         message: messages.signOutSuccess,
         variant: 'success'
       }))
-      .finally(() => socket.emit('sign out', `${user.email} signed out`))
+      .finally(() => socket.emit('sign out', `[${user.email}] signed out`))
       .finally(() => history.push('/'))
       .finally(() => clearUser())
   }

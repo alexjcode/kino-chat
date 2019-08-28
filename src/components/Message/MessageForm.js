@@ -5,14 +5,13 @@ import React from 'react'
 
 const MessageForm = ({ messageInfo, handleChange, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
-    <label>Type A Message</label>
     <input
       placeholder="..."
       name="text"
       value={messageInfo ? messageInfo.text : ''}
       onChange={handleChange}
     />
-    <button type="submit">Submit</button>
+    <button type="submit">Post</button>
   </form>
 )
 

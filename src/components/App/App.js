@@ -49,21 +49,23 @@ class App extends Component {
         ))}
         <main className="container">
           <Route path='/sign-up' render={() => (
-            <SignUp alert={this.alert} setUser={this.setUser} />
+            <SignUp alert={this.alert} setUser={this.setUser}/>
           )} />
           <Route path='/sign-in' render={() => (
-            <SignIn alert={this.alert} setUser={this.setUser} />
+            <SignIn alert={this.alert} setUser={this.setUser}/>
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
+            <SignOut alert={this.alert} clearUser={this.clearUser} user={user}/>
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword alert={this.alert} user={user} />
+            <ChangePassword alert={this.alert} user={user}/>
           )} />
           <Route exact path='/' render={() => (
-            <Messages alert={this.alert} user={user} />
+            <Messages alert={this.alert} user={user}/>
           )} />
-          { user && <CreateMessage alert={this.alert} user={user} />}
+          <Route exact path='/' render={() => (
+            user ? (<CreateMessage alert={this.alert} user={user}/>) : null
+          )} />
         </main>
       </Fragment>
     )

@@ -39,7 +39,7 @@ class SignUp extends Component {
         message: messages.signUpSuccess,
         variant: 'success'
       }))
-      .then(() => socket.emit('sign in', `${this.state.user} signed in`))
+      .then(() => socket.emit('sign in', `[${this.state.user}] signed in`))
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)

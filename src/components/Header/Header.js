@@ -21,12 +21,8 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
     <Navbar.Brand href="#">Kino Chat</Navbar.Brand>
-    { user && (<Fragment>
-      <Nav className="m-auto"><Nav.Link href="#messages">Messages</Nav.Link></Nav>
-      <Nav className="m-auto"><Nav.Link href="#messages/new">Create</Nav.Link></Nav>
-    </Fragment>)}
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
@@ -37,5 +33,11 @@ const Header = ({ user }) => (
     </Navbar.Collapse>
   </Navbar>
 )
+
+// links
+// { user && (<Fragment>
+//   <Nav className="m-auto"><Nav.Link href="#messages">Messages</Nav.Link></Nav>
+//   <Nav className="m-auto"><Nav.Link href="#messages/new">Create</Nav.Link></Nav>
+// </Fragment>)}
 
 export default Header
