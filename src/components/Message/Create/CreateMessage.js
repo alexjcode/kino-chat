@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 // import { Redirect } from 'react-router-dom'
-// import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import MessageForm from '../MessageForm'
 import { createMessage } from '../../../api/message'
@@ -66,11 +65,6 @@ class CreateMessage extends Component {
       })
   }
 
-  // .then(() => {
-  //   socket.emit('chat message', $('#m').val())
-  //   $('#m').val('') // clear form
-  //   return false // ???
-  // })
   render () {
     return (
       <Fragment>
@@ -84,8 +78,6 @@ class CreateMessage extends Component {
     )
   }
 }
-
-// /////////////////////////
 
 // async componentDidMount () {
 //   try {

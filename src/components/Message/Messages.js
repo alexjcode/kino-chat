@@ -14,11 +14,20 @@ class Messages extends Component {
     }
   }
 
-  msgCreated = (msg) => {
+  msgCreated = msg => {
     if (this.state.messages[this.state.messages.length - 1] !== msg) {
       // console.log('msg', msg)
       // console.log('msg', msg.text)
       this.setState({ messages: [...this.state.messages, msg] })
+    }
+  }
+
+  msgUpdated = msg => {
+    const msgArr = this.state.messages
+    let updatedMsg = msgArr.find(m => m._id === msg._id)
+    if (updatedMsg) {
+      updatedMsg = msg
+      this.setState({ messages: msgArr })
     }
   }
 
@@ -27,6 +36,7 @@ class Messages extends Component {
       const res = await axios(`${apiUrl}/messages`)
       this.setState({ messages: res.data.messages })
       socket.on('new message sent', this.msgCreated)
+      socket.on('message update sent', this.msgCreated)
     } catch (err) {
       console.error(err)
     }
@@ -34,6 +44,7 @@ class Messages extends Component {
 
   componentWillUnmount () {
     socket.off('new message sent')
+    socket.off('message update sent')
   }
 
   // delete = event => {

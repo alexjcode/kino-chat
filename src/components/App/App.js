@@ -64,8 +64,8 @@ class App extends Component {
           <Route exact path='/' render={() => (
             <Messages alert={this.alert} user={user}/>
           )} />
-          <AuthenticatedRoute exact path='/' render={() => (
-            <CreateMessage alert={this.alert} user={user}/>
+          <Route exact path='/' render={() => (
+            (user && <CreateMessage alert={this.alert} user={user}/>)
           )} />
           <AuthenticatedRoute user={user} path='/messages/:id/edit' render={() => (
             <EditMessage alert={this.alert} user={user}/>

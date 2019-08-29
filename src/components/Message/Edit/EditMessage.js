@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../../apiConfig'
 import MessageForm from '../MessageForm'
-// import Layout from './shared/Layout.js'
+import { updateMessage, showMessage } from '../../../api/message'
+import io from 'socket.io-client'
+const socket = io(apiUrl)
 
 class EditMessage extends Component {
   constructor () {
     super()
     this.state = {
       message: null,
-      updated: null,
-      deleted: null
+      updatedMessageId: null
     }
   }
 
@@ -35,19 +36,50 @@ class EditMessage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    axios.patch(`${apiUrl}/messages/${this.props.match.params.id}`, {
-      message: this.state.message
-    })
-      .then(res => this.setState({ updated: true }))
-      .catch(console.error)
+    // console.log('props', this.props)
+    const { alert, user } = this.props
+    updateMessage(this.state, user)
+      .then(() => showMessage(this.props.match.params.id))
+      .then(res => {
+        // console.log('show res data', res)
+        this.setState({
+          updatedMessageId: res.data.message._id,
+          messageData: res.data.message
+        })
+        console.log('edited id', res.data.message._id)
+        return ''
+      })
+      .then(() => alert({
+        heading: 'Message Updated',
+        message: 'you updated a message',
+        variant: 'success'
+      }))
+      .then(() => socket.emit('updated message', {
+        text: this.state.message.text,
+        _id: this.state.createdMessageId,
+        updatedAt: this.state.messageData.updatedAt,
+        createdAt: this.state.messageData.createdAt,
+        owner: this.state.messageData.owner,
+        __v: this.state.messageData.__v,
+        log: `[${user.email}] ${this.state.message.text}`
+      }))
+      .catch(error => {
+        console.error(error)
+        this.setState({ message: null })
+        alert({
+          heading: 'oops',
+          message: 'couldnt update',
+          variant: 'danger'
+        })
+      })
   }
 
   render () {
-    const { message, updated } = this.state
+    const { message, updatedMessageId } = this.state
     // console.log('message', message)
     let messageJsx = ''
-    if (updated) {
-      return <Redirect to={/messages/ + this.props.match.params.id}/>
+    if (updatedMessageId) {
+      return <Redirect to="/"/>
     } else {
       message ? messageJsx = (
         <MessageForm
@@ -60,11 +92,11 @@ class EditMessage extends Component {
     }
     return (
       <Fragment>
-        <h3>edit page</h3>
+        <h3>Edit</h3>
         {messageJsx}
       </Fragment>
     )
   }
 }
 
-export default EditMessage
+export default withRouter(EditMessage)

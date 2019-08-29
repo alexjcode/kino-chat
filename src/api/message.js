@@ -2,8 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createMessage = (input, user) => {
-  // console.log('token', user.token)
-  // console.log('input', input)
   return axios({
     method: 'POST',
     url: apiUrl + '/messages',
@@ -18,27 +16,21 @@ export const createMessage = (input, user) => {
   })
 }
 
-export const indexMessages = input => {
+export const indexMessages = () => {
   return axios({
-    url: apiUrl + '/messages',
-    headers: {
-      'Authorization': `Token token=${input.user.token}`
-    }
+    url: apiUrl + '/messages'
   })
 }
 
-export const showMessage = input => {
+export const showMessage = id => {
   return axios({
-    url: apiUrl + '/messages' + input.id,
-    headers: {
-      'Authorization': `Token token=${input.user.token}`
-    }
+    url: apiUrl + '/messages/' + id
   })
 }
 
 export const updateMessage = (input, user) => {
   return axios({
-    url: apiUrl + '/messages' + input.id,
+    url: apiUrl + '/messages/' + input.message._id,
     method: 'PATCH',
     headers: {
       'Authorization': `Token token=${user.token}`
