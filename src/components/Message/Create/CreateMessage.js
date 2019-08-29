@@ -78,6 +78,7 @@ class CreateMessage extends Component {
           messageInfo={this.state.message}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          action="Post"
         />
       </Fragment>
     )

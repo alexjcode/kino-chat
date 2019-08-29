@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import apiUrl from './apiConfig'
-import MovieForm from './shared/MovieForm'
+import apiUrl from '../../../apiConfig'
+import MessageForm from '../MessageForm'
 // import Layout from './shared/Layout.js'
 
-class MovieEdit extends Component {
+class EditMessage extends Component {
   constructor () {
     super()
     this.state = {
-      movie: null,
+      message: null,
       updated: null,
       deleted: null
     }
@@ -17,8 +17,8 @@ class MovieEdit extends Component {
 
   async componentDidMount () {
     try {
-      const res = await axios(`${apiUrl}/movies/${this.props.match.params.id}`)
-      this.setState({ movie: res.data.movie })
+      const res = await axios(`${apiUrl}/messages/${this.props.match.params.id}`)
+      this.setState({ message: res.data.message })
     } catch (err) {
       console.error(err)
     }
@@ -29,41 +29,42 @@ class MovieEdit extends Component {
     const updatedField = {
       [event.target.name]: event.target.value
     }
-    const editedMovie = Object.assign(this.state.movie, updatedField)
-    this.setState({ movie: editedMovie })
+    const editedMessage = Object.assign(this.state.message, updatedField)
+    this.setState({ message: editedMessage })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    axios.patch(`${apiUrl}/movies/${this.props.match.params.id}`, {
-      movie: this.state.movie
+    axios.patch(`${apiUrl}/messages/${this.props.match.params.id}`, {
+      message: this.state.message
     })
       .then(res => this.setState({ updated: true }))
       .catch(console.error)
   }
 
   render () {
-    const { movie, updated } = this.state
-    // console.log('movie', movie)
-    let movieJsx = ''
+    const { message, updated } = this.state
+    // console.log('message', message)
+    let messageJsx = ''
     if (updated) {
-      return <Redirect to={/movies/ + this.props.match.params.id}/>
+      return <Redirect to={/messages/ + this.props.match.params.id}/>
     } else {
-      movie ? movieJsx = (
-        <MovieForm
-          movieInfo={movie}
+      message ? messageJsx = (
+        <MessageForm
+          messageInfo={message}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          action="Edit"
         />
-      ) : movieJsx = 'Loading...'
+      ) : messageJsx = 'Loading...'
     }
     return (
       <Fragment>
         <h3>edit page</h3>
-        {movieJsx}
+        {messageJsx}
       </Fragment>
     )
   }
 }
 
-export default MovieEdit
+export default EditMessage

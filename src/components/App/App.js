@@ -13,7 +13,8 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 
 // CHAT
 import Messages from '../Message/Messages'
-import CreateMessage from '../Message/CreateMessage/CreateMessage'
+import CreateMessage from '../Message/Create/CreateMessage'
+import EditMessage from '../Message/Edit/EditMessage'
 
 class App extends Component {
   constructor () {
@@ -63,8 +64,11 @@ class App extends Component {
           <Route exact path='/' render={() => (
             <Messages alert={this.alert} user={user}/>
           )} />
-          <Route exact path='/' render={() => (
-            user ? (<CreateMessage alert={this.alert} user={user}/>) : null
+          <AuthenticatedRoute exact path='/' render={() => (
+            <CreateMessage alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/messages/:id/edit' render={() => (
+            <EditMessage alert={this.alert} user={user}/>
           )} />
         </main>
       </Fragment>

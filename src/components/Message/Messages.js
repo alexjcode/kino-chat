@@ -16,8 +16,8 @@ class Messages extends Component {
 
   msgCreated = (msg) => {
     if (this.state.messages[this.state.messages.length - 1] !== msg) {
-      console.log('msg', msg)
-      console.log('msg', msg.text)
+      // console.log('msg', msg)
+      // console.log('msg', msg.text)
       this.setState({ messages: [...this.state.messages, msg] })
     }
   }
@@ -49,13 +49,15 @@ class Messages extends Component {
   render () {
     const messagesJsx = this.state.messages.map(message => (
       <li key={message._id}>
-        <Link to={'/messages/' + message._id}>{message.text}</Link>
+        <Link to={'/messages/' + message._id + '/edit'}>{message.text}</Link>
       </li>
     ))
+
+    // {this.state.messages && console.log('msg-arr', this.state.messages)}
+    // {messagesJsx && console.log('messagesJsx', messagesJsx)}
+
     return (
       <Fragment>
-        {this.state.messages ? console.log('msg-arr', this.state.messages) : null}
-        {messagesJsx ? console.log('messagesJsx', messagesJsx) : null}
         {this.state.messages.length > 0 ? messagesJsx : 'Waiting for Messages'}
       </Fragment>
     )

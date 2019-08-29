@@ -3,7 +3,7 @@ import React from 'react'
 // import Messages from './Messages.js'
 // import Message from './Message.js'
 
-const MessageForm = ({ messageInfo, handleChange, handleSubmit }) => (
+const MessageForm = ({ messageInfo, handleChange, handleSubmit, action }) => (
   <form onSubmit={handleSubmit}>
     <input
       placeholder="..."
@@ -11,7 +11,7 @@ const MessageForm = ({ messageInfo, handleChange, handleSubmit }) => (
       value={messageInfo ? messageInfo.text : ''}
       onChange={handleChange}
     />
-    <button type="submit">Post</button>
+    <button type="submit">{action}</button>
   </form>
 )
 
