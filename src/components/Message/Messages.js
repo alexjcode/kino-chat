@@ -22,14 +22,6 @@ class Messages extends Component {
     }
   }
 
-  // componentDidMount () {
-  //   axios(`${apiUrl}/messages`)
-  //     .then(res => {
-  //       this.setState({ messages: res.data.messages })
-  //     })
-  //     .catch(console.error)
-  // }
-
   async componentDidMount () {
     try {
       const res = await axios(`${apiUrl}/messages`)
@@ -38,6 +30,10 @@ class Messages extends Component {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  componentWillUnmount () {
+    socket.off('new message sent')
   }
 
   // delete = event => {
@@ -51,14 +47,6 @@ class Messages extends Component {
   // <button onClick={deleteMessage} messageid={message._id}>Delete</button>
 
   render () {
-    // socket.on('new message', (msg) => {
-    //   if (this.state.messages[this.state.messages.length - 1] !== msg) {
-    //     this.state.messages.push(msg)
-    //     document.getElementById('message-list').append(<li key={msg._id}>
-    //       <Link to={'/messages/' + msg._id}>{msg.text}</Link></li>)
-    //   }
-    // })
-
     const messagesJsx = this.state.messages.map(message => (
       <li key={message._id}>
         <Link to={'/messages/' + message._id}>{message.text}</Link>
