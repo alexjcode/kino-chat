@@ -43,11 +43,9 @@ export const updateMessage = (input, user) => {
   })
 }
 
-export const deleteMessage = (input, user) => {
-  console.log('token', user.token)
-  console.log('input', input)
+export const deleteMessage = (id, user) => {
   return axios({
-    url: apiUrl + '/messages/' + input.id,
+    url: apiUrl + '/messages/' + id,
     method: 'DELETE',
     headers: {
       'Authorization': `Token token=${user.token}`

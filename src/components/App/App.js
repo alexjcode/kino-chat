@@ -15,6 +15,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Messages from '../Message/Messages'
 import CreateMessage from '../Message/Create/CreateMessage'
 import EditMessage from '../Message/Edit/EditMessage'
+import DeleteMessage from '../Message/Delete/DeleteMessage'
 
 class App extends Component {
   constructor () {
@@ -69,6 +70,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/messages/:id/edit' render={() => (
             <EditMessage alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/messages/:id/delete' render={() => (
+            <DeleteMessage alert={this.alert} user={user}/>
           )} />
         </main>
       </Fragment>

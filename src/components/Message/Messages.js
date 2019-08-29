@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
 import io from 'socket.io-client'
+import Button from 'react-bootstrap/Button'
 const socket = io(apiUrl)
-// import DeleteMessage from '../../api/message'
 
 class Messages extends Component {
   constructor (props) {
@@ -16,8 +16,6 @@ class Messages extends Component {
 
   msgCreated = msg => {
     if (this.state.messages[this.state.messages.length - 1] !== msg) {
-      // console.log('msg', msg)
-      // console.log('msg', msg.text)
       this.setState({ messages: [...this.state.messages, msg] })
     }
   }
@@ -31,12 +29,22 @@ class Messages extends Component {
     }
   }
 
+  msgDeleted = msg => {
+    const msgArr = this.state.messages
+    let deletedMsg = msgArr.find(m => m._id === msg._id)
+    if (deletedMsg) {
+      deletedMsg = null
+      this.setState({ messages: msgArr })
+    }
+  }
+
   async componentDidMount () {
     try {
       const res = await axios(`${apiUrl}/messages`)
       this.setState({ messages: res.data.messages })
       socket.on('new message sent', this.msgCreated)
       socket.on('message update sent', this.msgCreated)
+      socket.on('message delete sent', this.msgDeleted)
     } catch (err) {
       console.error(err)
     }
@@ -45,10 +53,10 @@ class Messages extends Component {
   componentWillUnmount () {
     socket.off('new message sent')
     socket.off('message update sent')
+    socket.off('message delete sent')
   }
 
   // delete = event => {
-  //   const id = event.target.getAttribute('messageid')
   //   console.log('event', id)
   //   axios.delete(`${apiUrl}/messages/${id}`)
   //     .then(console.log)
@@ -59,14 +67,17 @@ class Messages extends Component {
 
   render () {
     const messagesJsx = this.state.messages.map(message => (
-      <li key={message._id}>
-        <Link to={'/messages/' + message._id + '/edit'}>{message.text}</Link>
-      </li>
+      message && (<li key={message._id}>{this.props.user
+        ? (<Fragment>
+          <Link to={'/messages/' + message._id + '/edit'}>
+            {message.text}
+          </Link>
+          <Button href={'/#/messages/' + message._id + '/delete'}>
+            Delete
+          </Button>
+        </Fragment>)
+        : message.text}</li>)
     ))
-
-    // {this.state.messages && console.log('msg-arr', this.state.messages)}
-    // {messagesJsx && console.log('messagesJsx', messagesJsx)}
-
     return (
       <Fragment>
         {this.state.messages.length > 0 ? messagesJsx : 'Waiting for Messages'}

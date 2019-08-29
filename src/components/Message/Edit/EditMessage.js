@@ -61,7 +61,7 @@ class EditMessage extends Component {
         createdAt: this.state.messageData.createdAt,
         owner: this.state.messageData.owner,
         __v: this.state.messageData.__v,
-        log: `[${user.email}] ${this.state.message.text}`
+        log: `[${user.email}] // edited a message // ${this.state.message.text}`
       }))
       .catch(error => {
         console.error(error)
