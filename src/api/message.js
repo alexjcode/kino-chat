@@ -2,8 +2,8 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createMessage = (input, user) => {
-  console.log('token', user.token)
-  console.log('input', input)
+  // console.log('token', user.token)
+  // console.log('input', input)
   return axios({
     method: 'POST',
     url: apiUrl + '/messages',
