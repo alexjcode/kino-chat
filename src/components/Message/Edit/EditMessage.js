@@ -46,7 +46,7 @@ class EditMessage extends Component {
           updatedMessageId: res.data.message._id,
           messageData: res.data.message
         })
-        console.log('edited id', res.data.message._id)
+        // console.log('edited id', res.data.message._id)
         return ''
       })
       .then(() => alert({

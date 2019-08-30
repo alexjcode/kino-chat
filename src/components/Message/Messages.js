@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
 import io from 'socket.io-client'
+import { deleteMessage } from '../../api/message'
 import Button from 'react-bootstrap/Button'
 const socket = io(apiUrl)
 
@@ -14,6 +15,34 @@ class Messages extends Component {
     }
   }
 
+  delete = event => {
+    event.preventDefault()
+    // console.log('this.props', this.props)
+    const { alert, user } = this.props
+    // console.log('user', user)
+    const messageId = event.target.getAttribute('msg-id')
+    deleteMessage(messageId, user)
+      .then(() => alert({
+        heading: 'Message Deleted',
+        message: 'you deleted a message',
+        variant: 'success'
+      }))
+      .then(() => socket.emit('deleted message', {
+        _id: messageId,
+        owner: user._id,
+        log: `[${user.email}] // deleted a message // `
+      }))
+      .catch(error => {
+        console.error(error)
+        this.setState({ message: null })
+        alert({
+          heading: 'oops',
+          message: 'couldnt delete',
+          variant: 'danger'
+        })
+      })
+  }
+
   msgCreated = msg => {
     if (this.state.messages[this.state.messages.length - 1] !== msg) {
       this.setState({ messages: [...this.state.messages, msg] })
@@ -22,19 +51,35 @@ class Messages extends Component {
 
   msgUpdated = msg => {
     const msgArr = this.state.messages
-    let updatedMsg = msgArr.find(m => m._id === msg._id)
+    const updatedMsg = msgArr.find(m => m._id === msg._id)
     if (updatedMsg) {
-      updatedMsg = msg
-      this.setState({ messages: msgArr })
+      const index = msgArr.findIndex(m => m._id === msg._id)
+      if (index === msgArr.length - 1) {
+        this.setState({
+          messages: [ ...msgArr.slice(0, index), msg ]
+        })
+      } else {
+        this.setState({
+          messages: [ ...msgArr.slice(0, index), msg, ...msgArr.slice(index + 1) ]
+        })
+      }
     }
   }
 
   msgDeleted = msg => {
     const msgArr = this.state.messages
-    let deletedMsg = msgArr.find(m => m._id === msg._id)
+    const deletedMsg = msgArr.find(m => m._id === msg._id)
     if (deletedMsg) {
-      deletedMsg = null
-      this.setState({ messages: msgArr })
+      const index = msgArr.findIndex(m => m._id === msg._id)
+      if (index === msgArr.length - 1) {
+        this.setState({
+          messages: [ ...msgArr.slice(0, index) ]
+        })
+      } else {
+        this.setState({
+          messages: [ ...msgArr.slice(0, index), ...msgArr.slice(index + 1) ]
+        })
+      }
     }
   }
 
@@ -56,24 +101,16 @@ class Messages extends Component {
     socket.off('message delete sent')
   }
 
-  // delete = event => {
-  //   console.log('event', id)
-  //   axios.delete(`${apiUrl}/messages/${id}`)
-  //     .then(console.log)
-  //     .catch(console.error)
-  // }
-
-  // <button onClick={deleteMessage} messageid={message._id}>Delete</button>
-
   render () {
     const messagesJsx = this.state.messages.map(message => (
-      message && (<li key={message._id}>{this.props.user
+      message && (<li key={message._id}>{(this.props.user &&
+        this.props.user._id === message.owner)
         ? (<Fragment>
           <Link to={'/messages/' + message._id + '/edit'}>
             {message.text}
           </Link>
-          <Button href={'/#/messages/' + message._id + '/delete'}>
-            Delete
+          <Button onClick={this.delete} msg-id={message._id} type="submit">
+            X
           </Button>
         </Fragment>)
         : message.text}</li>)
@@ -85,7 +122,5 @@ class Messages extends Component {
     )
   }
 }
-
-// <DeleteMessage alert={this.alert} user={this.props.user} />
 
 export default Messages
