@@ -50,13 +50,13 @@ class Messages extends Component {
   }
 
   msgUpdated = msg => {
-    console.log('ggg')
+    // console.log('ggg')
     const msgArr = this.state.messages
     const updatedMsg = msgArr.find(m => m._id === msg._id)
-    console.log(msgArr)
-    console.log('msg', msg)
+    // console.log(msgArr)
+    // console.log('msg', msg)
     const index = msgArr.findIndex(m => m._id === msg._id)
-    console.log('index', index)
+    // console.log('index', index)
     if (updatedMsg) {
       this.setState({
         messages: [ ...msgArr.slice(0, index), msg, ...msgArr.slice(index + 1) ]
