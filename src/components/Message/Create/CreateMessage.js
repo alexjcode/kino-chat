@@ -54,6 +54,8 @@ class CreateMessage extends Component {
         __v: this.state.messageData.__v,
         log: `[${user.email}] ${this.state.message.text}`
       }))
+      // clear forms on submit
+      .then(() => this.setState({ message: { text: '' } }))
       .catch(error => {
         console.error(error)
         this.setState({ message: null })
@@ -78,14 +80,5 @@ class CreateMessage extends Component {
     )
   }
 }
-
-// async componentDidMount () {
-//   try {
-//     const res = await axios.post(`${apiUrl}/messages`, 'data')
-//     this.setState({ message: res.data.message })
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
 
 export default withRouter(CreateMessage)
