@@ -52,10 +52,6 @@ To figure out Socket and React, I was quicker about making issues in the issue q
 ## Wireframes
 <img src="https://i.imgur.com/p4TUWTO.jpg" width="100%" alt="Wireframes">
 
-​
-## ERD
-<img src="https://i.imgur.com/eLV9gn2.jpg" width="100%" alt="ERD">
-
 ## User Stories
 - As an unregistered user, I would like to sign up with email and password.
 - As a registered user, I would like to sign in with email and password.
