@@ -22,11 +22,11 @@ class Messages extends Component {
     // console.log('user', user)
     const messageId = event.target.getAttribute('msg-id')
     deleteMessage(messageId, user)
-      .then(() => alert({
-        heading: 'Message Deleted',
-        message: 'you deleted a message',
-        variant: 'success'
-      }))
+      // .then(() => alert({
+      //   heading: 'Message Deleted',
+      //   message: 'you deleted a message',
+      //   variant: 'success'
+      // }))
       .then(() => socket.emit('deleted message', {
         _id: messageId,
         owner: user._id,
