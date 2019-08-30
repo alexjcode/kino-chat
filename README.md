@@ -49,7 +49,7 @@ Most of the project consisted of me learning Socket, and learning how to use Rea
 The biggest bump in the road was not knowing how use Socket.io, and that along with Reatc took me about 2 days to figure out.
 To figure out Socket and React, I was quicker about making issues in the issue queue, I watched YouTube videos, I looked at the docs, at StackOverflow, FreeCodeCamp, Medium, and anything else I could find. Many of the smaller bugs I encountered were misspelling or mislabeling of elements.
 ​
-## Wireframes
+## Wireframe
 <img src="https://i.imgur.com/p4TUWTO.jpg" width="100%" alt="Wireframes">
 
 ## User Stories
