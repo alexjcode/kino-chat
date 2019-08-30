@@ -50,19 +50,17 @@ class Messages extends Component {
   }
 
   msgUpdated = msg => {
+    console.log('ggg')
     const msgArr = this.state.messages
     const updatedMsg = msgArr.find(m => m._id === msg._id)
+    console.log(msgArr)
+    console.log('msg', msg)
+    const index = msgArr.findIndex(m => m._id === msg._id)
+    console.log('index', index)
     if (updatedMsg) {
-      const index = msgArr.findIndex(m => m._id === msg._id)
-      if (index === msgArr.length - 1) {
-        this.setState({
-          messages: [ ...msgArr.slice(0, index), msg ]
-        })
-      } else {
-        this.setState({
-          messages: [ ...msgArr.slice(0, index), msg, ...msgArr.slice(index + 1) ]
-        })
-      }
+      this.setState({
+        messages: [ ...msgArr.slice(0, index), msg, ...msgArr.slice(index + 1) ]
+      })
     }
   }
 
@@ -71,15 +69,9 @@ class Messages extends Component {
     const deletedMsg = msgArr.find(m => m._id === msg._id)
     if (deletedMsg) {
       const index = msgArr.findIndex(m => m._id === msg._id)
-      if (index === msgArr.length - 1) {
-        this.setState({
-          messages: [ ...msgArr.slice(0, index) ]
-        })
-      } else {
-        this.setState({
-          messages: [ ...msgArr.slice(0, index), ...msgArr.slice(index + 1) ]
-        })
-      }
+      this.setState({
+        messages: [ ...msgArr.slice(0, index), ...msgArr.slice(index + 1) ]
+      })
     }
   }
 
@@ -88,7 +80,7 @@ class Messages extends Component {
       const res = await axios(`${apiUrl}/messages`)
       this.setState({ messages: res.data.messages })
       socket.on('new message sent', this.msgCreated)
-      socket.on('message update sent', this.msgCreated)
+      socket.on('message update sent', this.msgUpdated)
       socket.on('message delete sent', this.msgDeleted)
     } catch (err) {
       console.error(err)

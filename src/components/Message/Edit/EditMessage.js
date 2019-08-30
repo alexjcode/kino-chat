@@ -56,7 +56,7 @@ class EditMessage extends Component {
       }))
       .then(() => socket.emit('updated message', {
         text: this.state.message.text,
-        _id: this.state.createdMessageId,
+        _id: this.state.updatedMessageId,
         updatedAt: this.state.messageData.updatedAt,
         createdAt: this.state.messageData.createdAt,
         owner: this.state.messageData.owner,
