@@ -10,9 +10,9 @@ body {
 }
 
 .card {
-  border-radius: 55px;
-  -webkit-border-radius: 55px;
-  -moz-border-radius: 55px;
+  border-radius: 19px;
+  -webkit-border-radius: 19px;
+  -moz-border-radius: 19px;
   text-decoration: none;
   border: 1px solid white;
   background-color: rgba(123, 0, 112, .5);
@@ -31,7 +31,7 @@ a :hover {
 }
 
 main {
-  padding: 20px 0;
+  padding: 40px 0 20px 0;
 }
 
 li {
@@ -83,4 +83,22 @@ input, .form-control, .form-control:focus, input:-internal-autofill-selected {
   width: 100%;
   height: 100%;
   border-radius: 0;
+}
+
+.form-right {
+  border-top-right-radius: 55px;
+  border-bottom-right-radius: 55px;
+  width: 100%;
+}
+
+.form-left {
+  border-top-left-radius: 55px;
+  border-bottom-left-radius: 55px;
+}
+
+.input-group-append {
+  width: 100%;
+  @extend .col-2;
+  @extend .col-md-1;
+  padding: 0;
 }

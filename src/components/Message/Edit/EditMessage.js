@@ -51,7 +51,7 @@ class EditMessage extends Component {
       })
       .then(() => alert({
         heading: 'Message Updated',
-        message: 'you updated a message',
+        // message: 'you updated a message',
         variant: 'success'
       }))
       .then(() => socket.emit('updated message', {
@@ -68,7 +68,7 @@ class EditMessage extends Component {
         this.setState({ message: null })
         alert({
           heading: 'oops',
-          message: 'couldnt update',
+          // message: 'couldnt update',
           variant: 'danger'
         })
       })
@@ -86,13 +86,13 @@ class EditMessage extends Component {
           messageInfo={message}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          action="Edit"
+          action="Submit"
         />
       ) : messageJsx = 'Loading...'
     }
     return (
       <Fragment>
-        <h3>Edit</h3>
+        <h3 className="white">Edit</h3>
         {messageJsx}
       </Fragment>
     )

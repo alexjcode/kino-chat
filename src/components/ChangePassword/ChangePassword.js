@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { changePassword } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+// import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -29,7 +29,7 @@ class ChangePassword extends Component {
     changePassword(this.state, user)
       .then(() => alert({
         heading: 'Change Password Success',
-        message: messages.changePasswordSuccess,
+        // message: messages.changePasswordSuccess,
         variant: 'success'
       }))
       .then(() => history.push('/'))
@@ -38,7 +38,7 @@ class ChangePassword extends Component {
         this.setState({ oldPassword: '', newPassword: '' })
         alert({
           heading: 'Change Password Failed',
-          message: messages.changePasswordFailure,
+          // message: messages.changePasswordFailure,
           variant: 'danger'
         })
       })

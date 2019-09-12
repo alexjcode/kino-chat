@@ -11,9 +11,10 @@ const MessageForm = ({ messageInfo, handleChange, handleSubmit, action }) => (
         name="text"
         value={messageInfo ? messageInfo.text : ''}
         onChange={handleChange}
+        className="form-left col-10 col-md-11"
       />
       <InputGroup.Append>
-        <Button type="submit" className="btn-light">{action}</Button>
+        <Button type="submit" className="btn-light form-right">{action}</Button>
       </InputGroup.Append>
     </InputGroup>
   </form>

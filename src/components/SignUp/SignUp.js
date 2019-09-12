@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+// import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -34,7 +34,7 @@ class SignUp extends Component {
       .then(res => setUser(res.data.user))
       .then(() => alert({
         heading: 'Sign Up Success',
-        message: messages.signUpSuccess,
+        // message: messages.signUpSuccess,
         variant: 'success'
       }))
       .then(() => socket.emit('sign in', `[${this.state.user}] signed in`))
@@ -44,7 +44,7 @@ class SignUp extends Component {
         this.setState({ email: '', password: '', passwordConfirmation: '' })
         alert({
           heading: 'Sign Up Failed',
-          message: messages.signUpFailure,
+          // message: messages.signUpFailure,
           variant: 'danger'
         })
       })
@@ -55,7 +55,7 @@ class SignUp extends Component {
 
     return (
       <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+        <div className="col-sm-10 col-md-8 mx-auto mt-5 white">
           <h3>Sign Up</h3>
           <Form onSubmit={this.onSignUp}>
             <Form.Group controlId="email">

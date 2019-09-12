@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+// import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -34,7 +34,7 @@ class SignIn extends Component {
       .then(res => setUser(res.data.user))
       .then(() => alert({
         heading: 'Sign In Success',
-        message: messages.signInSuccess,
+        // message: messages.signInSuccess,
         variant: 'success'
       }))
       .then(() => socket.emit('sign in', `[${this.state.email}] signed in`))
@@ -44,7 +44,7 @@ class SignIn extends Component {
         this.setState({ email: '', password: '' })
         alert({
           heading: 'Sign In Failed',
-          message: messages.signInFailure,
+          // message: messages.signInFailure,
           variant: 'danger'
         })
       })

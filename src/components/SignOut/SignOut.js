@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signOut } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+// import messages from '../AutoDismissAlert/messages'
 
 import apiUrl from '../../apiConfig'
 import io from 'socket.io-client'
@@ -15,7 +15,7 @@ class SignOut extends Component {
     signOut(user)
       .then(() => alert({
         heading: 'Signed Out Successfully',
-        message: messages.signOutSuccess,
+        // message: messages.signOutSuccess,
         variant: 'success'
       }))
       .then(() => socket.emit('sign out', `[${user.email}] signed out`))

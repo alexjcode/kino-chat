@@ -42,7 +42,7 @@ class CreateMessage extends Component {
       })
       .then(() => alert({
         heading: 'Message Created',
-        message: 'you made a message',
+        // message: 'you made a message',
         variant: 'success'
       }))
       .then(() => socket.emit('new message', {
@@ -60,8 +60,8 @@ class CreateMessage extends Component {
         console.error(error)
         this.setState({ message: null })
         alert({
-          heading: 'oops',
-          message: 'couldnt make a message',
+          heading: 'Failed to send message',
+          // message: '',
           variant: 'danger'
         })
       })
@@ -74,7 +74,7 @@ class CreateMessage extends Component {
           messageInfo={this.state.message}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          action="Post"
+          action="Send"
         />
       </Fragment>
     )
