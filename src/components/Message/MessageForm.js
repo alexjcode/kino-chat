@@ -1,27 +1,22 @@
 import React from 'react'
-// import { Route, Link } from 'react-router-dom'
-// import Messages from './Messages.js'
-// import Message from './Message.js'
+import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
 
 const MessageForm = ({ messageInfo, handleChange, handleSubmit, action }) => (
   <form onSubmit={handleSubmit}>
-    <input
-      placeholder="..."
-      name="text"
-      value={messageInfo ? messageInfo.text : ''}
-      onChange={handleChange}
-    />
-    <button type="submit">{action}</button>
+    <InputGroup className="mb-3">
+      <FormControl
+        placeholder="..."
+        name="text"
+        value={messageInfo ? messageInfo.text : ''}
+        onChange={handleChange}
+      />
+      <InputGroup.Append>
+        <Button type="submit" className="btn-light">{action}</Button>
+      </InputGroup.Append>
+    </InputGroup>
   </form>
 )
 
 export default MessageForm
-
-// $(function () {
-//   $('form').submit(function(e){
-//   e.preventDefault() // prevents page reloading
-//   socket.emit('chat message', $('#m').val())
-//   $('#m').val('')
-//   return false
-//   })
-// })

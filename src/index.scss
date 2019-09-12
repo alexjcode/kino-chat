@@ -1,1 +1,86 @@
 @import '~bootstrap/scss/bootstrap';
+
+body {
+  background-color: black;
+  background-image: url('https://i.imgur.com/KczquAM.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.card {
+  border-radius: 55px;
+  -webkit-border-radius: 55px;
+  -moz-border-radius: 55px;
+  text-decoration: none;
+  border: 1px solid white;
+  background-color: rgba(123, 0, 112, .5);
+}
+
+a {
+  text-decoration: none;
+}
+
+a :hover {
+  text-decoration: none;
+}
+
+.card-body {
+  padding: 7px 20px;
+}
+
+main {
+  padding: 20px 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px 0;
+}
+
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+}
+
+.input-group {
+  border-radius: 55px;
+  -webkit-border-radius: 55px;
+  -moz-border-radius: 55px;
+  padding: 16px 0;
+  // background-color: rgba(255, 255, 255, .5);
+  // text-decoration: none;
+}
+
+.navbar {
+  background-color: #7b0070;
+}
+
+input, .form-control, .form-control:focus, input:-internal-autofill-selected {
+  color: white !important;
+  background-color: rgba(0, 0, 0, .5) !important;
+}
+
+.my-msg {
+  border-right-width: 0;
+  overflow: hidden;
+}
+
+.delete {
+  float: right;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}

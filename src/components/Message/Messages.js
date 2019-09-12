@@ -30,7 +30,7 @@ class Messages extends Component {
       .then(() => socket.emit('deleted message', {
         _id: messageId,
         owner: user._id,
-        log: `[${user.email}] // deleted a message // `
+        log: `[${user.email}] // deleted a message //`
       }))
       .catch(error => {
         console.error(error)
@@ -97,15 +97,27 @@ class Messages extends Component {
     const messagesJsx = this.state.messages.map(message => (
       message && (<li key={message._id}>{(this.props.user &&
         this.props.user._id === message.owner)
-        ? (<Fragment>
-          <Link to={'/messages/' + message._id + '/edit'}>
+        ? (<div className="card my-msg">
+          <div className="row no-gutters">
+            <div className="col-11">
+              <Link to={'/messages/' + message._id + '/edit'} style={{ textDecoration: 'none', color: 'white' }}>
+                <div className="card-body">
+                  {message.text}
+                </div>
+              </Link>
+            </div>
+            <div className="col-1">
+              <Button className="btn-sm btn-light delete clearfix" onClick={this.delete} msg-id={message._id} type="submit">
+                X
+              </Button>
+            </div>
+          </div>
+        </div>)
+        : <div className="card other-msg">
+          <div className="card-body white">
             {message.text}
-          </Link>
-          <Button onClick={this.delete} msg-id={message._id} type="submit">
-            X
-          </Button>
-        </Fragment>)
-        : message.text}</li>)
+          </div>
+        </div>}</li>)
     ))
     return (
       <Fragment>

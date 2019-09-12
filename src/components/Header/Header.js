@@ -21,7 +21,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
+  <Navbar variant="dark" expand="md" collapseOnSelect>
     <Navbar.Brand href="#">Kino Chat</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
